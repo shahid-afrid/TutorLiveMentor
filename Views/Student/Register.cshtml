@@ -1,0 +1,36 @@
+﻿@model TutorLiveMentor.Models.StudentRegistrationModel
+
+
+
+<h2>Student Registration</h2>
+@using (Html.BeginForm("Register", "Student", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+
+    <label>Full Name</label>
+    @Html.TextBoxFor(m => m.FullName)
+    @Html.ValidationMessageFor(m => m.FullName)
+    <br />
+
+    <label>Year</label>
+    @Html.DropDownListFor(m => m.Year, new SelectList(new[] { "II Year", "III Year", "IV Year" }), "Select Year")
+    @Html.ValidationMessageFor(m => m.Year)
+    <br />
+
+    <label>Branch</label>
+    @Html.TextBoxFor(m => m.Branch)
+    @Html.ValidationMessageFor(m => m.Branch)
+    <br />
+
+    <label>Email</label>
+    @Html.TextBoxFor(m => m.Email, new { type = "email" })
+    @Html.ValidationMessageFor(m => m.Email)
+    <br />
+
+    <label>Password</label>
+    @Html.PasswordFor(m => m.Password)
+    @Html.ValidationMessageFor(m => m.Password)
+    <br />
+
+    <button type="submit">Register</button>
+}

@@ -45,7 +45,7 @@
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
-    <script type="text/javascript">
+    <script>
         function checkRegdNum(input) {
             var span = document.getElementById('regdError');
             if (input.value.length !== 10) {
@@ -54,13 +54,6 @@
                 span.textContent = "";
             }
         }
-        function checkRGMCET(input) {
-            var span = document.getElementById('emailError');
-            if (!input.value.endsWith('@rgmcet.edu.in')) {
-                span.textContent = "Email must end with @rgmcet.edu.in";
-            } else {
-                span.textContent = "";
-            }
-        }
+       
     </script>
 }

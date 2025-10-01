@@ -1,36 +1,66 @@
 ﻿@model TutorLiveMentor.Models.StudentRegistrationModel
 
-
-
 <h2>Student Registration</h2>
 @using (Html.BeginForm("Register", "Student", FormMethod.Post))
 {
     @Html.ValidationSummary(true)
 
     <label>Full Name</label>
-    @Html.TextBoxFor(m => m.FullName)
+    @Html.TextBoxFor(m => m.FullName, new { @required = "required" })
     @Html.ValidationMessageFor(m => m.FullName)
     <br />
 
+    <label>Regd Number</label>
+    @Html.TextBoxFor(m => m.RegdNumber, new { id = "regdnum", maxlength = "10", @required = "required", oninput = "checkRegdNum(this)" })
+    <span id="regdError" style="color:red"></span>
+    @Html.ValidationMessageFor(m => m.RegdNumber)
+    <br />
+
     <label>Year</label>
-    @Html.DropDownListFor(m => m.Year, new SelectList(new[] { "II Year", "III Year", "IV Year" }), "Select Year")
+    @Html.DropDownListFor(m => m.Year, new SelectList(new[] { "II Year", "III Year", "IV Year" }), "Select Year", new { @required = "required" })
     @Html.ValidationMessageFor(m => m.Year)
     <br />
 
     <label>Branch</label>
-    @Html.TextBoxFor(m => m.Branch)
+    @Html.DropDownListFor(m => m.Branch, new SelectList(new[] {
+        "CSE","CSE(DS)","CSE(AIML)","CSE(CS)","CSE(BS)",
+        "ECE","EEE","MECH","CIVIL"
+    }), "Select Branch", new { @required = "required" })
     @Html.ValidationMessageFor(m => m.Branch)
     <br />
 
     <label>Email</label>
-    @Html.TextBoxFor(m => m.Email, new { type = "email" })
+    @Html.TextBoxFor(m => m.Email, new { type = "email", id = "email", @required = "required", oninput = "checkRGMCET(this)" })
+    <span id="emailError" style="color:red"></span>
     @Html.ValidationMessageFor(m => m.Email)
     <br />
 
     <label>Password</label>
-    @Html.PasswordFor(m => m.Password)
+    @Html.PasswordFor(m => m.Password, new { @required = "required" })
     @Html.ValidationMessageFor(m => m.Password)
     <br />
 
     <button type="submit">Register</button>
+}
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script type="text/javascript">
+        function checkRegdNum(input) {
+            var span = document.getElementById('regdError');
+            if (input.value.length !== 10) {
+                span.textContent = "Regd Number must be exactly 10 characters.";
+            } else {
+                span.textContent = "";
+            }
+        }
+        function checkRGMCET(input) {
+            var span = document.getElementById('emailError');
+            if (!input.value.endsWith('@rgmcet.edu.in')) {
+                span.textContent = "Email must end with @rgmcet.edu.in";
+            } else {
+                span.textContent = "";
+            }
+        }
+    </script>
 }

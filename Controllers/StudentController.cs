@@ -1,23 +1,50 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-
 using TutorLiveMentor.Models;
-// <- Make sure this namespace matches your project name!
-public class StudentController : Controller
-{
-    [HttpGet]
-    public IActionResult Register()
-    {
-        return View();
-    }
 
-    [HttpPost]
-    public IActionResult Register(StudentRegistrationModel model)
+namespace TutorLiveMentor.Controllers
+{
+    public class StudentController : Controller
     {
-        if (ModelState.IsValid)
+        [HttpGet]
+        public IActionResult Index()
         {
-            // Save to DB later!
-            return RedirectToAction("Login");
+            return View();
         }
-        return View(model);
+
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Register(StudentRegistrationModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // Save logic will go here
+                return RedirectToAction("Login");
+            }
+            return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(string email, string password)
+        {
+            // Placeholder for login logic
+            if (!string.IsNullOrEmpty(email) && !string.IsNullOrEmpty(password))
+            {
+                // Temporary: always succeed
+                return RedirectToAction("Index"); // Or Dashboard
+            }
+            ModelState.AddModelError("", "Invalid email or password.");
+            return View();
+        }
     }
 }

@@ -1,6 +1,15 @@
 ﻿<h2>Student Login</h2>
-<form method="post">
-    <input type="text" name="Email" placeholder="Email" required /><br />
-    <input type="password" name="Password" placeholder="Password" required /><br />
+@using (Html.BeginForm("Login", "Student", FormMethod.Post))
+{
+    <label>Email</label>
+    <input type="email" name="email" required />
+    <br />
+    <label>Password</label>
+    <input type="password" name="password" required />
+    <br />
     <button type="submit">Login</button>
-</form>
+}
+@if (!ViewData.ModelState.IsValid)
+{
+    <div style="color:red;">@Html.ValidationSummary()</div>
+}

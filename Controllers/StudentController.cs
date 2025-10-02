@@ -55,6 +55,7 @@ namespace TutorLiveMentor.Controllers
                 _context.Students.Add(student);
                 await _context.SaveChangesAsync();
 
+                TempData["SuccessMessage"] = "Registration successful! Please log in now.";
                 return RedirectToAction("Login");
             }
             return View(model);
@@ -84,7 +85,7 @@ namespace TutorLiveMentor.Controllers
 
             if (result == PasswordVerificationResult.Success)
             {
-                // Optionally: Set session or redirect as needed
+                // Optionally: set session here
                 return RedirectToAction("Index", "Home");
             }
 

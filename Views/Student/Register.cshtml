@@ -23,29 +23,33 @@
 
     <label>Branch</label>
     @Html.DropDownListFor(m => m.Branch, new SelectList(new[] {
-        "CSE","CSE(DS)","CSE(AIML)","CSE(CS)","CSE(BS)",
+    "CSE","CSE(DS)","CSE(AIML)","CSE(CS)","CSE(BS)",
         "ECE","EEE","MECH","CIVIL"
     }), "Select Branch", new { @required = "required" })
-    @Html.ValidationMessageFor(m => m.Branch)
-    <br />
+@Html.ValidationMessageFor(m => m.Branch)
+<br />
 
-    <label>Email</label>
-    @Html.TextBoxFor(m => m.Email, new { type = "email", id = "email", @required = "required", oninput = "checkRGMCET(this)" })
-    <span id="emailError" style="color:red"></span>
-    @Html.ValidationMessageFor(m => m.Email)
-    <br />
+<label>Email</label>
+@Html.TextBoxFor(m => m.Email, new { type = "email", id = "email", @required = "required" })
+@Html.ValidationMessageFor(m => m.Email)
+<br />
 
-    <label>Password</label>
-    @Html.PasswordFor(m => m.Password, new { @required = "required" })
-    @Html.ValidationMessageFor(m => m.Password)
-    <br />
+<label>Password</label>
+<div style="display: inline-flex; align-items: center;">
+    <input type="password" id="password" name="Password" required style="margin-right:5px;" />
+    <button type="button" onclick="togglePassword()" style="background:none; border:none; cursor:pointer;">
+        <span id="eye" style="font-size:20px;">👁️</span>
+    </button>
+</div>
+@Html.ValidationMessageFor(m => m.Password)
+<br />
 
-    <button type="submit">Register</button>
+<button type="submit">Register</button>
 }
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
-    <script>
+    <script type="text/javascript">
         function checkRegdNum(input) {
             var span = document.getElementById('regdError');
             if (input.value.length !== 10) {
@@ -54,6 +58,17 @@
                 span.textContent = "";
             }
         }
-       
+
+        function togglePassword() {
+            var pwd = document.getElementById("password");
+            var eye = document.getElementById("eye");
+            if (pwd.type === "password") {
+                pwd.type = "text";
+                eye.textContent = "🙈";
+            } else {
+                pwd.type = "password";
+                eye.textContent = "👁️";
+            }
+        }
     </script>
 }

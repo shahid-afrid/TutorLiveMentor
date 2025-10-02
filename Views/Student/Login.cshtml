@@ -1,15 +1,50 @@
-﻿<h2>Student Login</h2>
+﻿@model TutorLiveMentor.Models.LoginViewModel
+
+@{
+    ViewBag.Title = "Student Login";
+}
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div style="color: green; font-weight: bold;">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<h2>Student Login</h2>
+
 @using (Html.BeginForm("Login", "Student", FormMethod.Post))
 {
+    @Html.ValidationSummary(true)
+
     <label>Email</label>
-    <input type="email" name="email" required />
+    @Html.TextBoxFor(m => m.Email, new { @required = "required", type = "email" })
+    @Html.ValidationMessageFor(m => m.Email)
     <br />
+
     <label>Password</label>
-    <input type="password" name="password" required />
+    <div style="display: inline-flex; align-items: center;">
+        <input type="password" id="password" name="Password" required style="margin-right:5px;" />
+        <button type="button" onclick="togglePassword()" style="background: none; border: none; cursor: pointer;">
+            <span id="eye" style="font-size: 18px;">👁️</span>
+        </button>
+    </div>
+    @Html.ValidationMessageFor(m => m.Password)
     <br />
+
     <button type="submit">Login</button>
 }
-@if (!ViewData.ModelState.IsValid)
-{
-    <div style="color:red;">@Html.ValidationSummary()</div>
-}
+
+<script type="text/javascript">
+    function togglePassword() {
+        var pwd = document.getElementById("password");
+        var eye = document.getElementById("eye");
+        if (pwd.type === "password") {
+            pwd.type = "text";
+            eye.textContent = "🙈";
+        } else {
+            pwd.type = "password";
+            eye.textContent = "👁️";
+        }
+    }
+</script>

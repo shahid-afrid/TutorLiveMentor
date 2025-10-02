@@ -76,7 +76,14 @@ namespace TutorLiveMentor.Controllers
                 return View(model);
             }
 
-            return RedirectToAction("Dashboard");
+            // After login, go to MainDashboard with big icon menu
+            return RedirectToAction("MainDashboard");
+        }
+
+        [HttpGet]
+        public IActionResult MainDashboard()
+        {
+            return View();
         }
 
         [HttpGet]
@@ -118,6 +125,12 @@ namespace TutorLiveMentor.Controllers
                 return RedirectToAction("Dashboard");
             }
             return View(model);
+        }
+
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            return RedirectToAction("Login");
         }
     }
 }

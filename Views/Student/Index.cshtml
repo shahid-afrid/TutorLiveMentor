@@ -2,8 +2,12 @@
     ViewBag.Title = "Student Home";
 }
 
-<h2>Welcome to the Student Home Page!</h2>
+<h2>Welcome to the Student Section</h2>
 <p>
-    <a href="/Student/Register"><button>Register</button></a>
-    <a href="/Student/Login"><button>Login</button></a>
+    <form method="get" action="/Student/Register" style="display:inline;">
+        <button type="submit">Register</button>
+    </form>
+    <form method="get" action="/Student/Login" style="display:inline;">
+        <button type="submit">Login</button>
+    </form>
 </p>

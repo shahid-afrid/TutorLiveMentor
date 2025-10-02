@@ -1,0 +1,29 @@
+﻿@model TutorLiveMentor.Models.Student
+
+<h2>Student Dashboard</h2>
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div style="color: green; font-weight: bold;">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<div style="border:1px solid #bbb; padding:20px; width:350px;">
+    <p><b>Name:</b> @Model.FullName</p>
+    <p><b>Regd Number:</b> @Model.RegdNumber</p>
+    <p><b>Year:</b> @Model.Year</p>
+    <p><b>Branch:</b> @Model.Branch</p>
+    <p><b>Email:</b> @Model.Email</p>
+    <p><b>Password:</b> @Model.Password</p>
+    <p><b>Assigned Faculty:</b> <span style="color:red;">Not assigned yet</span></p>
+    <form method="get" action="/Student/Edit" style="display:inline;">
+        <button type="submit">Edit Profile</button>
+    </form>
+    <form method="get" action="/Student/ChangePassword" style="display:inline;">
+        <button type="submit">Change Password</button>
+    </form>
+    <form method="get" action="/Student/Logout" style="display:inline;">
+        <button type="submit">Logout</button>
+    </form>
+</div>

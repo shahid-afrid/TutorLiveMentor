@@ -10,7 +10,7 @@ namespace TutorLiveMentor.Models
         public string FullName { get; set; }
 
         [Required]
-        [StringLength(10, MinimumLength = 10)]
+        [StringLength(10)]
         public string RegdNumber { get; set; }
 
         [Required]
@@ -24,6 +24,6 @@ namespace TutorLiveMentor.Models
         public string Email { get; set; }
 
         [Required]
-        public string PasswordHash { get; set; }
+        public string Password { get; set; }
     }
 }

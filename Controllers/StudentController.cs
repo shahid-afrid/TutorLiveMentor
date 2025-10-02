@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TutorLiveMentor.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using System.Linq;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace TutorLiveMentor.Controllers
 {
@@ -39,9 +38,6 @@ namespace TutorLiveMentor.Controllers
                     return View(model);
                 }
 
-                var passwordHasher = new PasswordHasher<StudentRegistrationModel>();
-                var hash = passwordHasher.HashPassword(model, model.Password);
-
                 var student = new Student
                 {
                     FullName = model.FullName,
@@ -49,7 +45,7 @@ namespace TutorLiveMentor.Controllers
                     Year = model.Year,
                     Branch = model.Branch,
                     Email = model.Email,
-                    PasswordHash = hash
+                    Password = model.Password
                 };
 
                 _context.Students.Add(student);
@@ -74,22 +70,53 @@ namespace TutorLiveMentor.Controllers
                 return View(model);
 
             var student = await _context.Students.FirstOrDefaultAsync(s => s.Email == model.Email);
-            if (student == null)
+            if (student == null || student.Password != model.Password)
             {
                 ModelState.AddModelError(string.Empty, "Invalid Email or Password.");
                 return View(model);
             }
 
-            var passwordHasher = new PasswordHasher<LoginViewModel>();
-            var result = passwordHasher.VerifyHashedPassword(model, student.PasswordHash, model.Password);
+            return RedirectToAction("Dashboard");
+        }
 
-            if (result == PasswordVerificationResult.Success)
+        [HttpGet]
+        public async Task<IActionResult> Dashboard()
+        {
+            var student = await _context.Students.FirstOrDefaultAsync();
+            if (student == null)
+                return RedirectToAction("Login");
+
+            return View(student);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit()
+        {
+            var student = await _context.Students.FirstOrDefaultAsync();
+            if (student == null)
+                return RedirectToAction("Login");
+            return View(student);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Student model)
+        {
+            if (ModelState.IsValid)
             {
-                // Optionally: set session here
-                return RedirectToAction("Index", "Home");
-            }
+                var student = await _context.Students.FindAsync(model.Id);
+                if (student == null)
+                    return RedirectToAction("Login");
 
-            ModelState.AddModelError(string.Empty, "Invalid Email or Password.");
+                student.FullName = model.FullName;
+                student.Year = model.Year;
+                student.Branch = model.Branch;
+
+                _context.Students.Update(student);
+                await _context.SaveChangesAsync();
+
+                TempData["SuccessMessage"] = "Profile updated!";
+                return RedirectToAction("Dashboard");
+            }
             return View(model);
         }
     }

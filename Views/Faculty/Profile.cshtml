@@ -1,0 +1,16 @@
+﻿@model TutorLiveMentor.Models.Faculty
+
+<h2 style="margin-top:32px;">Faculty Profile</h2>
+<div style="width:410px; margin:20px auto; background:#f9f8ff; border-radius:16px; box-shadow:0 4px 18px #ececf0; padding:34px 42px;">
+    <div style="display:flex; flex-direction:column; align-items:center;">
+        <div style="width:96px; height:96px; border-radius:50%; background:#eaeaea; display:flex; align-items:center; justify-content:center; margin-bottom:20px;">
+            <span style="font-size:72px;">👤</span>
+        </div>
+        <h3>@Model.Name</h3>
+        <div style="margin-bottom:16px; color:#444; font-size:15.5px; margin-top:2px;">
+            <b>Email:</b> @Model.Email
+        </div>
+        <!-- Add more profile fields here as needed -->
+    </div>
+</div>
+<a href="@Url.Action("Dashboard", "Faculty")" style="margin-left:42px;">&larr; Back to Dashboard</a>

@@ -25,5 +25,8 @@ namespace TutorLiveMentor.Models
 
         [Required]
         public string Password { get; set; }
+
+        public string SelectedSubject { get; set; } = string.Empty;
+
     }
 }

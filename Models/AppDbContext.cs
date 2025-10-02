@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using TutorLiveMentor.Models;
+
 
 namespace TutorLiveMentor.Models
 {

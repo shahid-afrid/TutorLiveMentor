@@ -1,0 +1,47 @@
+﻿@model List<TutorLiveMentor.Models.Student>
+
+@{
+    var facultySubjects = ViewBag.Subjects as List<TutorLiveMentor.Models.AssignedSubject>;
+    var enrolledStudents = Model;
+    string selectedSubject = ViewBag.SelectedSubject as string;
+}
+
+<h2>Students Enrolled to You</h2>
+
+<form method="get">
+    <label for="subject">Select subject:</label>
+    <select id="subject" name="subject" onchange="this.form.submit()">
+        <option value="">--Select Subject--</option>
+        @if (facultySubjects != null)
+        {
+            foreach (var s in facultySubjects)
+            {
+                string sel = selectedSubject == s.SubjectName ? "selected" : "";
+                @:<option value="@s.SubjectName" @sel>@s.Year - @s.SubjectName</option>
+            }
+        }
+    </select>
+</form>
+
+@if(enrolledStudents != null && enrolledStudents.Count > 0) {
+    <table border="1" cellpadding="8" style="margin-top:24px;">
+        <tr>
+            <th>Name of the Student</th>
+            <th>Regd No</th>
+            <th>Selected Subject</th>
+            <th>Year</th>
+        </tr>
+        @foreach(var student in enrolledStudents) {
+            <tr>
+                <td>@student.FullName</td>
+                <td>@student.RegdNumber</td>
+                <td>@student.SelectedSubject</td>
+                <td>@student.Year</td>
+            </tr>
+        }
+    </table>
+} else if(selectedSubject != null && selectedSubject != "") {
+    <p>No students enrolled for this subject.</p>
+} else {
+    <p>Select a subject above to view enrolled students.</p>
+}

@@ -1,6 +1,15 @@
-﻿<h2>Student Login</h2>
-<form method="post">
-    <input type="text" name="Email" placeholder="Email" required /><br />
-    <input type="password" name="Password" placeholder="Password" required /><br />
+﻿@model TutorLiveMentor.Models.FacultyLoginViewModel
+
+<h2>Faculty Login</h2>
+<form asp-action="Login" method="post">
+    <div>
+        <label>Email:</label>
+        <input asp-for="Email" />
+    </div>
+    <div>
+        <label>Password:</label>
+        <input asp-for="Password" type="password" />
+    </div>
+    <span asp-validation-summary="All"></span>
     <button type="submit">Login</button>
 </form>

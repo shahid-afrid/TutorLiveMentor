@@ -1,0 +1,16 @@
+﻿@model List<TutorLiveMentor.Models.AssignedSubject>
+
+<h2>Your Assigned Subjects</h2>
+<table border="1" cellpadding="8" style="margin-top:24px;">
+    <tr>
+        <th>Year</th>
+        <th>Subject</th>
+    </tr>
+    @foreach (var s in Model)
+    {
+        <tr>
+            <td>@s.Year</td>
+            <td>@s.SubjectName</td>
+        </tr>
+    }
+</table>

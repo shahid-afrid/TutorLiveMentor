@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace TutorLiveMentor.Models
+﻿namespace TutorLiveMentor.Models
 {
     public class Faculty
     {
